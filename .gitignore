@@ -1,0 +1,10 @@
+# Dependencies
+node_modules
+
+# Outputs
+.serverless
+.webpack-output
+
+# service
+.DS_Store
+.git

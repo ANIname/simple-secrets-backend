@@ -1,0 +1,59 @@
+{
+  "name": "simple-secrets-backend",
+  "version": "1.0.0",
+  "description": "Backend for simple secrets manager",
+  "keywords": [
+    "simple",
+    "secrets",
+    "manager",
+    "password",
+    "backend",
+    "composer"
+  ],
+  "main": "serverless.js",
+  "scripts": {
+    "start": ""
+  },
+  "homepage": "https://ss.aniname.com",
+  "repository": "github:ANIname/simple-secrets-backend",
+  "bugs": {
+    "url": "https://ss.aniname.com/support",
+    "email": "support@ss.aniname.com"
+  },
+  "author": {
+    "name": "Vadim Borshchovetskiy",
+    "email": "kiidii@aniname.com",
+    "url": "https://github.com/kiidii"
+  },
+  "contributors": [],
+  "funding": [],
+  "license": "MIT",
+  "engines": {
+    "node": "14.x",
+    "npm": "8.3.1"
+  },
+  "dependencies": {
+    "ajv": "^8.10.0",
+    "directory-import": "^2.3.1",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "eslint": "^8.10.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-align-assignments": "^1.1.2",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsdoc": "^37.9.6",
+    "eslint-plugin-jsonc": "^2.2.1",
+    "eslint-plugin-sonarjs": "^0.12.0",
+    "eslint-plugin-unicorn": "^41.0.0",
+    "serverless": "^3.7.1",
+    "serverless-deployment-bucket": "^1.5.2",
+    "serverless-iam-roles-per-function": "^3.2.0",
+    "serverless-offline": "^8.5.0",
+    "serverless-plugin-include-dependencies": "^5.0.0",
+    "serverless-plugin-scripts": "^1.0.2",
+    "serverless-plugin-tree-shake": "^1.1.11",
+    "serverless-stack-output": "^0.2.3"
+  }
+}

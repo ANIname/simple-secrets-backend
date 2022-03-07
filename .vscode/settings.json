@@ -1,0 +1,16 @@
+{
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "json",
+    "jsonc",
+    "json5"
+  ],
+  "cSpell.words": [
+    "Borshchovetskiy",
+    "Iname",
+    "sonarjs",
+    "stroustrup",
+    "websockets"
+  ]
+}
