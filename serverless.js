@@ -1,15 +1,19 @@
+require('./environment');
+
+const path      = require('path');
 const importDir = require('directory-import');
 
 const camelCase = require('lodash/camelCase');
-const forEach   = require('lodash/forEach');
+const split     = require('lodash/split');
+const join      = require('lodash/join');
 const pick      = require('lodash/pick');
 
 const consoleTableObject = require('./utils/console-table-object');
 const setIfNotExists     = require('./utils/set-if-not-exists');
 
 const {
+  SERVERLESS_VERSION,
   NODE_ENGINE_VERSION,
-  PROJECT_DESCRIPTION,
   PROJECT_NAME,
 
   AWS_PROFILE,
@@ -18,8 +22,8 @@ const {
   STAGE,
 
   IS_OFFLINE,
-  IS_DEV,
-} = require('./constants/application');
+  IS_DEVELOPMENT,
+} = process.env;
 
 // Base configuration
 (() => {
@@ -27,11 +31,10 @@ const {
 
   config.service = PROJECT_NAME;
 
-  config.frameworkVersion = '2';
+  config.frameworkVersion = SERVERLESS_VERSION;
 
-  config.configValidationMode                = 'error';
-  config.unresolvedVariablesNotificationMode = 'error';
-  config.deprecationNotificationMode         = 'error';
+  config.configValidationMode        = 'error';
+  config.deprecationNotificationMode = 'error';
 
   config.plugins = [
     // 'serverless-domain-manager',
@@ -40,7 +43,6 @@ const {
     'serverless-stack-output',
     'serverless-plugin-scripts',
     'serverless-deployment-bucket',
-    'serverless-plugin-tree-shake',
     'serverless-iam-roles-per-function',
     'serverless-plugin-include-dependencies',
   ];
@@ -60,10 +62,9 @@ const {
   config.stackName = STACK_NAME;
 
   config.profile         = IS_OFFLINE ? AWS_PROFILE : undefined;
-  config.disableRollback = !!IS_DEV;
+  config.disableRollback = !!IS_DEVELOPMENT;
 
-  config.logRetentionInDays   = 7;
-  config.lambdaHashingVersion = 20_201_221;
+  config.logRetentionInDays = 7;
 
   config.versionFunctions = true;
 
@@ -82,37 +83,16 @@ const {
   consoleTableObject('⚡ Serverless deployment bucket configuration:', config);
 })();
 
-// Api configuration
-(() => {
-  setIfNotExists(module.exports, 'provider', {});
-  setIfNotExists(module.exports, 'provider.apiGateway', {});
-  setIfNotExists(module.exports, 'provider.logs.restApi', {});
-  setIfNotExists(module.exports, 'provider.logs.websocket', {});
-
-  const config = module.exports.provider;
-
-  config.apiName           = `${STACK_NAME}-http-api`;
-  config.websocketsApiName = `${STACK_NAME}-websocket-api`;
-
-  config.apiGateway.description            = PROJECT_DESCRIPTION;
-  config.apiGateway.disableDefaultEndpoint = true;
-  config.apiGateway.metrics                = true;
-
-  config.logs.restApi.level   = 'INFO';
-  config.logs.websocket.level = 'INFO';
-
-  consoleTableObject('⚡ Serverless api gateway configuration:', config);
-})();
-
 // Package configuration
 (() => {
   const config = setIfNotExists(module.exports, 'package', {}).package;
 
   config.individually = true;
-  config.exclude      = ['package.json'];
+
+  config.patterns = '!**';
 
   // no need to spend time excluding dev dependencies, given that
-  // serverless-plugin-tree-shake does it already
+  // serverless-plugin-include-dependencies does it already
   config.excludeDevDependencies = false;
 
   consoleTableObject('⚡ Serverless package Configuration:', config);
@@ -138,12 +118,19 @@ const {
     exclude:       /^((?!lambda-config.js).)*$/, // exclude everything that is not a lambda-config.js
   };
 
-  importDir(importLambdaFunctionsConfigurationOptions, (fileName, filePath, fileData) => {
-    forEach(fileData, (lambdaFunctionConfig, lambdaFunctionName) => {
-      config[lambdaFunctionName] = lambdaFunctionConfig;
+  importDir(importLambdaFunctionsConfigurationOptions, (lambdaConfigName, lambdaConfigPath, lambdaConfigData) => {
+    const lambdaConfigDirectory = path.dirname(lambdaConfigPath);
 
-      preparedLambdaFunctionsDataToLog[lambdaFunctionName] = pick(lambdaFunctionConfig, ['handler', 'description']);
-    });
+    let lambdaName = lambdaConfigDirectory.slice(1);
+    lambdaName     = split(lambdaName, path.sep);
+    lambdaName     = join(lambdaName, '-');
+
+    config[lambdaName] = {
+      handler: `lambda-functions/${lambdaConfigDirectory}/index.handler`,
+      ...lambdaConfigData,
+    };
+
+    preparedLambdaFunctionsDataToLog[lambdaName] = pick(lambdaConfigData, ['handler', 'description']);
   });
 
   console.group('⚡', 'Serverless prepared lambda functions:');
