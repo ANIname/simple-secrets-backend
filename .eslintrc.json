@@ -40,7 +40,7 @@
     "key-spacing": [2, { "align": { "beforeColon": false, "afterColon": true, "on": "value" } }],
     "max-len": [2, { "code": 120, "ignoreComments": true, "ignorePattern": ".*require.*" }],
     "no-console": ["error", { "allow": ["info", "warn", "error", "table", "group", "groupEnd"] }],
-    "no-magic-numbers": 2,
+    "no-magic-numbers": [2, { "ignore": [0, 1] }],
     "no-multi-spaces": 0,
 
     "sonarjs/no-inverted-boolean-check": 2,
