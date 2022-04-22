@@ -39,7 +39,6 @@ const {
   config.plugins = [
     // 'serverless-domain-manager',
     // 'serverless-certificate-creator',
-    'serverless-offline',
     'serverless-stack-output',
     'serverless-plugin-scripts',
     'serverless-deployment-bucket',
