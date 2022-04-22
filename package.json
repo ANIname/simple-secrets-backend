@@ -12,7 +12,13 @@
   ],
   "main": "serverless.js",
   "scripts": {
-    "start": ""
+    "start-development-application": "STAGE=development IS_OFFLINE=true sls offline",
+    "start-staging-application": "STAGE=staging IS_OFFLINE=true sls offline",
+    "start-production-application": "STAGE=production IS_OFFLINE=true sls offline",
+    "deploy-development-stack": "STAGE=development IS_OFFLINE=true sls deploy --verbose",
+    "deploy-staging-stack": "STAGE=staging IS_OFFLINE=true sls deploy --verbose",
+    "deploy-production-stack": "STAGE=production IS_OFFLINE=true sls deploy --verbose",
+    "application-info": "STAGE=development IS_OFFLINE=true sls info --verbose"
   },
   "homepage": "https://ss.aniname.com",
   "repository": "github:ANIname/simple-secrets-backend",
