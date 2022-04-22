@@ -48,13 +48,12 @@
     "eslint-plugin-jsonc": "^2.2.1",
     "eslint-plugin-sonarjs": "^0.13.0",
     "eslint-plugin-unicorn": "^42.0.0",
-    "serverless": "^3.15.1",
+    "serverless": "^3.15.2",
     "serverless-deployment-bucket": "^1.5.2",
     "serverless-iam-roles-per-function": "^3.2.0",
     "serverless-offline": "^8.7.0",
     "serverless-plugin-include-dependencies": "^5.0.0",
     "serverless-plugin-scripts": "^1.0.2",
-    "serverless-plugin-tree-shake": "^1.1.11",
     "serverless-stack-output": "^0.2.3"
   }
 }
