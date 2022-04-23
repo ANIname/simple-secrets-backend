@@ -1,8 +1,10 @@
-const split       = require('lodash/split');
-const toUpper     = require('lodash/toUpper');
+const split    = require('lodash/split');
+const toUpper  = require('lodash/toUpper');
+const defaults = require('lodash/defaults');
+
 const packageFile = require('./package.json');
 
-process.env = {
+const defaultValues = {
   STAGE:      'development',
   IS_OFFLINE: 'false',
 
@@ -13,7 +15,10 @@ process.env = {
   AWS_DEVELOPMENT_REGION: 'us-east-1',
   AWS_STAGING_REGION:     'us-east-2',
   AWS_PRODUCTION_REGION:  'eu-central-1',
+};
 
+const generatedValues = {
+  ...defaultValues,
   ...process.env,
 
   get AWS_REGION() {
@@ -44,3 +49,5 @@ process.env = {
     return this.IS_DEBUG_ENABLED ? '*' : undefined;
   },
 };
+
+process.env = defaults(process.env, defaultValues, generatedValues);
