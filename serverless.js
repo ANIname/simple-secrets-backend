@@ -37,8 +37,6 @@ const {
   config.deprecationNotificationMode = 'error';
 
   config.plugins = [
-    // 'serverless-domain-manager',
-    // 'serverless-certificate-creator',
     'serverless-stack-output',
     'serverless-plugin-scripts',
     'serverless-deployment-bucket',
