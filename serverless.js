@@ -37,6 +37,7 @@ const {
   config.deprecationNotificationMode = 'error';
 
   config.plugins = [
+    'serverless-offline',
     'serverless-stack-output',
     'serverless-plugin-scripts',
     'serverless-deployment-bucket',
@@ -123,11 +124,14 @@ const {
     lambdaName     = join(lambdaName, '-');
 
     config[lambdaName] = {
-      handler: `lambda-functions/${lambdaConfigDirectory}/index.handler`,
+      handler: `lambda-functions${lambdaConfigDirectory}/index.handler`,
+
+      events: [{ http: { path: lambdaConfigDirectory, method: 'ANY' } }],
+
       ...lambdaConfigData,
     };
 
-    preparedLambdaFunctionsDataToLog[lambdaName] = pick(lambdaConfigData, ['handler', 'description']);
+    preparedLambdaFunctionsDataToLog[lambdaName] = pick(config[lambdaName], ['handler', 'description']);
   });
 
   console.group('⚡', 'Serverless prepared lambda functions:');
