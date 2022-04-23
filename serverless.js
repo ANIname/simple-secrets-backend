@@ -45,7 +45,7 @@ const {
     'serverless-plugin-include-dependencies',
   ];
 
-  consoleTableObject('⚡ Serverless base configuration:', config);
+  consoleTableObject('⚡Serverless base configuration:', config);
 })();
 
 // Provider configuration
@@ -66,7 +66,7 @@ const {
 
   config.versionFunctions = true;
 
-  consoleTableObject('⚡ Serverless provider configuration:', config);
+  consoleTableObject('⚡Serverless provider configuration:', config);
 })();
 
 // Deployment bucket configuration
@@ -78,7 +78,7 @@ const {
   config.blockPublicAccess              = true;
   config.maxPreviousDeploymentArtifacts = 1;
 
-  consoleTableObject('⚡ Serverless deployment bucket configuration:', config);
+  consoleTableObject('⚡Serverless deployment bucket configuration:', config);
 })();
 
 // Package configuration
@@ -93,7 +93,7 @@ const {
   // serverless-plugin-include-dependencies does it already
   config.excludeDevDependencies = false;
 
-  consoleTableObject('⚡ Serverless package Configuration:', config);
+  consoleTableObject('⚡Serverless package Configuration:', config);
 })();
 
 // Stack output configuration
@@ -102,7 +102,7 @@ const {
 
   config.file = '.serverless/stack-output.json';
 
-  consoleTableObject('⚡ Serverless stack output Configuration:', config);
+  consoleTableObject('⚡Serverless stack output Configuration:', config);
 })();
 
 // Lambda functions configuration
@@ -134,7 +134,7 @@ const {
     preparedLambdaFunctionsDataToLog[lambdaName] = pick(config[lambdaName], ['handler', 'description']);
   });
 
-  console.group('⚡', 'Serverless prepared lambda functions:');
+  console.group('⚡Serverless prepared lambda functions:');
   console.table(preparedLambdaFunctionsDataToLog);
   console.groupEnd();
 })();
@@ -149,7 +149,7 @@ const {
     config[resourceCamelCaseName] = resourceConfig;
   });
 
-  console.group('⚡', 'Serverless resources configuration:');
+  console.group('⚡Serverless resources configuration:');
   console.table(config);
   console.groupEnd();
 })();
